@@ -4,12 +4,18 @@
    contain the root `toctree` directive.
 
 Welcome to docs's documentation!
+
+Welcome to My Project Documentation
+===================================
+
+This project is designed to [brief description of the project's purpose].
+It aims to [mention any specific goals or objectives].
 ================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   :content/average-squares-docs
+   content/average-squares-docs
 
 
 
@@ -19,9 +25,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-Porpuse of the documentation
-============================
-
-i will use this documentation to help solve the average square issue
-number 25

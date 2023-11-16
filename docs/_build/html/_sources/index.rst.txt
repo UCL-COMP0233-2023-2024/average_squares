@@ -4,11 +4,18 @@
    contain the root `toctree` directive.
 
 Welcome to docs's documentation!
+
+Welcome to My Project Documentation
+===================================
+
+This project is designed to [brief description of the project's purpose].
+It aims to [mention any specific goals or objectives].
 ================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   content/average-squares-docs
 
 
 
