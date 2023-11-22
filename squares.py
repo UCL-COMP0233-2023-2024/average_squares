@@ -29,7 +29,7 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
+    return sum(squares)/len(squares)
 
 
 def convert_numbers(list_of_strings):
@@ -38,7 +38,7 @@ def convert_numbers(list_of_strings):
     Example:
     --------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
 
     """
     all_numbers = []
@@ -49,6 +49,39 @@ def convert_numbers(list_of_strings):
     # ...then convert each substring into a number
     return [float(number_string) for number_string in all_numbers]
 
+def average_of_cubes(list_of_numbers, list_of_weights=None):
+    """
+    Calculates the weighted average of the cubes of a list of numbers.
+
+    Args:
+        list_of_numbers (list): A list of numbers.
+        list_of_weights (list, optional): A list of weights for each number. Defaults to None.
+
+    Raises:
+        AssertionError: If the length of list_of_weights is not equal to the length of list_of_numbers.
+
+    Returns:
+        float: The weighted average of the cubes of the numbers.
+
+    Examples:
+        >>> average_of_cubes([1, 2, 3])
+        4.666666666666667
+        >>> average_of_cubes([1, 2, 3], [1, 2, 3])
+        12.0
+    """
+    
+    if list_of_weights is not None:
+        assert len(list_of_weights) == len(list_of_numbers), \
+            "weights and numbers must have same length"
+        effective_weights = list_of_weights
+    else:
+        effective_weights = [1] * len(list_of_numbers)
+    cubes = [
+        weight * number * number
+        for number, weight
+        in zip(list_of_numbers, effective_weights)
+    ]
+    return sum(cubes)/len(cubes)
 
 if __name__ == "__main__":
     numbers_strings = ["1","2","4"]
