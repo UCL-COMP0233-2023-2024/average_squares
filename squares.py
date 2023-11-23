@@ -1,5 +1,7 @@
 """Computation of weighted average of squares."""
 
+from argparse import ArgumentParser
+
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
     """ Return the weighted average of a list of values.
@@ -21,9 +23,9 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     if list_of_weights is not None:
         assert len(list_of_weights) == len(list_of_numbers), \
             "weights and numbers must have same length"
-        effective_weights = list_of_weights
+        effective_weights = [weight / sum(list_of_weights) for weight in list_of_weights]
     else:
-        effective_weights = [1] * len(list_of_numbers)
+        effective_weights = [1/len(list_of_numbers)] * len(list_of_numbers)
     squares = [
         weight * number * number
         for number, weight
@@ -49,14 +51,21 @@ def convert_numbers(list_of_strings):
     # ...then convert each substring into a number
     return [float(number_string) for number_string in all_numbers]
 
+def process():
+    parser = ArgumentParser(description="Finging the average number of squares")
+
+    parser.add_argument('--number1', '-n1')
+    parser.add_argument('--number2', '-n2')
+    parser.add_argument('--number3', '-n3')
+    arguments = parser.parse_args()
+    
+    string_list = [arguments.number1, arguments.number2, arguments.number3]
+    list = [i for i in string_list if i is not None]
+
+    numbers_list = convert_numbers(list)
+    # print(numbers_list)
+    print(average_of_squares(numbers_list))
 
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    process()
     
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
-    
-    result = average_of_squares(numbers, weights)
-    
-    print(result)
