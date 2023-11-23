@@ -55,8 +55,8 @@ if __name__ == "__main__":
     #numbers_strings = ["1","2","4"]
     #weight_strings = ["1","1","1"] 
     parser = ArgumentParser(description="Compute weighted average of squares")
-    parser.add_argument('numbers', nargs='+')
-    parser.add_argument('--weights', '-w', nargs='+')
+    parser.add_argument('numbers', nargs='+', type=float, help='List of numbers to average')
+    parser.add_argument('--weights', '-w', nargs='+', type=float, help='Weight to apply')
     arguments= parser.parse_args()      
     
     numbers = convert_numbers(arguments.numbers)
