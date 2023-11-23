@@ -60,10 +60,13 @@ if __name__ == "__main__":
     parser = ArgumentParser(description="Generate list of numbers")
     parser.add_argument('integers', metavar='N', type=int, nargs='+',
                     help='an integer for the accumulator')
+    parser.add_argument('--weights', required=False, metavar='N', type=float, nargs='+',
+                    help='weights for the accumulator')
 
     arguments= parser.parse_args()
     numbers = arguments.integers
+    weights = arguments.weights
 
-    result = average_of_squares(numbers)
+    result = average_of_squares(numbers, weights)
     
     print(result)
