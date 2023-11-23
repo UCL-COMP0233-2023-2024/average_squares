@@ -45,19 +45,21 @@ def convert_numbers(list_of_strings):
     """
     all_numbers = []
     for s in list_of_strings:
-        # Take each string in the list, split it into substrings separated by
-        # whitespace, and collect them into a single list...
         tokens = s.split()
-        if tokens:
-            first_token = tokens[0]
+        for token in tokens:
             # Check if the token contains only digits
-            if len(first_token) == 1 or (len(first_token) > 1 and not tokens[1:]):
-                all_numbers.append(int(first_token))
+            if token.isdigit():
+                all_numbers.append(int(token))
+            else:
+                try:
+                    all_numbers.append(float(token))
+                except ValueError:
+                    pass
     return all_numbers
 
 if __name__ == "__main__":
     numbers_strings = ["1","4","4"]
-    weight_strings = ["1","5","1"]        
+    weight_strings = ["1","1","1"]        
     
     numbers = convert_numbers(numbers_strings)
     weights = convert_numbers(weight_strings)
