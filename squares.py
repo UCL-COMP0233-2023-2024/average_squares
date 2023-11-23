@@ -54,13 +54,19 @@ def convert_numbers(list_of_strings):
 if __name__ == "__main__":
     parser = ArgumentParser(description="To pass numbers from command line")
     parser.add_argument('numbers',nargs='*')
+    parser.add_argument('--weights',nargs='*',default=None)
+    
     arguments = parser.parse_args()
 
     # numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    # weight_strings = ["1","1","1"]        
     
     numbers = convert_numbers(arguments.numbers)
-    weights = convert_numbers(weight_strings)
+    # handle default weights case
+    if arguments.weights is None:
+       weights = arguments.weights
+    else: 
+        weights = convert_numbers(arguments.weights)
     
     result = average_of_squares(numbers, weights)
     
