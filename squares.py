@@ -50,13 +50,31 @@ def convert_numbers(list_of_strings):
     return [float(number_string) for number_string in all_numbers]
 
 
+# if __name__ == "__main__":
+#     numbers_strings = ["1","2","4"]
+#     weight_strings = ["1","1","1"]        
+    
+#     numbers = convert_numbers(numbers_strings)
+#     weights = convert_numbers(weight_strings)
+    
+#     result = average_of_squares(numbers, weights)
+    
+#     print(result)
+
+
+
+import argparse
+
 if __name__ == "__main__":
-    numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
-    
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
-    
-    result = average_of_squares(numbers, weights)
-    
-    print(result)
+    parser = argparse.ArgumentParser(description="Calculate the sum of squares of numbers.")
+    parser.add_argument("numbers", nargs="+", type=int, help="List of integers to calculate the squares.")
+    parser.add_argument("-weights", nargs="+", type=float, help="List of weights for squares")
+    args = parser.parse_args()
+
+    numbers = args.numbers
+    weights = args.numbers
+    # 使用 numbers 变量进行计算
+    sum_of_squares = average_of_squares(numbers, weights)
+
+    # sum_of_squares = sum(x**2 for x in numbers)
+    print(f"Sum of squares: {sum_of_squares}")
