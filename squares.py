@@ -1,5 +1,6 @@
 """Computation of weighted average of squares."""
 
+from argparse import ArgumentParser
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
     """ Return the weighted average of a list of values.
@@ -12,11 +13,10 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
     >>> average_of_squares([1, 2, 4])
     7.0
     >>> average_of_squares([2, 4], [1, 0.5])
-    8.0
+    6.0
     >>> average_of_squares([1, 2, 4], [1, 0.5])
     Traceback (most recent call last):
     AssertionError: weights and numbers must have same length
-
     """
     if list_of_weights is not None:
         assert len(list_of_weights) == len(list_of_numbers), \
@@ -24,13 +24,12 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
         effective_weights = list_of_weights
     else:
         effective_weights = [1] * len(list_of_numbers)
-    
-    total_weighted_squares = sum(weight * number**2 for number, weight in zip(list_of_numbers, effective_weights))
-    
-    total_weights = sum(effective_weights)
-    
-    average = total_weighted_squares / total_weights
-    return average
+    squares = [
+        weight * number * number
+        for number, weight
+        in zip(list_of_numbers, effective_weights)
+    ]
+    return sum(squares)/len(list_of_numbers)
    
 
 
@@ -39,31 +38,29 @@ def convert_numbers(list_of_strings):
     
     Example:
     --------
-    >>> convert_numbers(["4", " 8 ", "15", "16", "23    42"])
+    >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
     [4, 8, 15, 16]
-
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
     """
     all_numbers = []
     for s in list_of_strings:
-        tokens = s.split()
-        for token in tokens:
-            # Check if the token contains only digits
-            if token.isdigit():
-                all_numbers.append(int(token))
-            else:
-                try:
-                    all_numbers.append(float(token))
-                except ValueError:
-                    pass
-    return all_numbers
+        # Take each string in the list, split it into substrings separated by
+        # whitespace, and collect them into a single list...
+        all_numbers.extend([token.strip() for token in s.split()])
+    # ...then convert each substring into a number
+    return [float(number_string) for number_string in all_numbers]
 
 if __name__ == "__main__":
-    numbers_strings = ["1","4","4"]
-    weight_strings = ["1","1","1"]        
     
-    numbers = convert_numbers(numbers_strings)
-    weights = convert_numbers(weight_strings)
+    parser = ArgumentParser(description='Find the average squares of some numbers')
+    parser.add_argument('numbers', type=float, nargs='+',
+                        help='List of numbers')
+    parser.add_argument("--weights", "-w", type=float, nargs="+",
+                        help="Weights")
+    arguments = parser.parse_args()
     
-    result = average_of_squares(numbers, weights)
+    #numbers = convert_numbers(arguments.numbers)
+    #weights = convert_numbers(weight_strings)
     
+    result = average_of_squares(arguments.numbers, arguments.weights)
     print(result)
