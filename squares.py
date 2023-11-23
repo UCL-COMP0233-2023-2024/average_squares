@@ -56,10 +56,13 @@ if __name__ == "__main__":
     )
 
     parser.add_argument('numbers', type=str, nargs='+', help='list of numbers')
+    parser.add_argument('-w','--weights', type=str, nargs='+', help='list of weights')
     numbers_strings = parser.parse_args().numbers
 
+    
+    weight_strings = parser.parse_args().weights
     # numbers_strings = ["1","2","4"]
-    weight_strings = ["1","1","1"]        
+    # weight_strings = ["1","1","1"]        
     
     numbers = convert_numbers(numbers_strings)
     weights = convert_numbers(weight_strings)
